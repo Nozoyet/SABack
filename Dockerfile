@@ -41,7 +41,7 @@ RUN php artisan config:clear || true
 RUN mkdir -p /var/www/html/storage/logs \
     && touch /var/www/html/storage/logs/laravel.log \
     && chmod -R 777 /var/www/html/storage /var/www/html/bootstrap/cache
-    
+
 EXPOSE 80
 
-CMD ["apache2-foreground"]
+CMD ["sh", "-c", "php artisan config:clear && php artisan cache:clear && apache2-foreground"]
