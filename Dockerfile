@@ -37,7 +37,11 @@ RUN sed -i 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available
 
 # 7. Limpiar caché previa de Laravel por si se subió algún archivo local
 RUN php artisan config:clear || true
-
+# Crear carpeta de logs y archivo por si no existen
+RUN mkdir -p /var/www/html/storage/logs \
+    && touch /var/www/html/storage/logs/laravel.log \
+    && chmod -R 777 /var/www/html/storage /var/www/html/bootstrap/cache
+    
 EXPOSE 80
 
 CMD ["apache2-foreground"]
